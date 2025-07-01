@@ -85,6 +85,15 @@ def create_vpc(params: dict) -> dict:
     - public_subnets_per_az: int
     - private_subnets_per_az: int
     - name_tag: str
+
+    e.g.
+    create_vpc({
+        "cidr_block": "10.20.0.0/16",
+        "az_list": ["us-east-1a", "us-east-1b"],
+        "public_subnets_per_az": 1,
+        "private_subnets_per_az": 1,
+        "name_tag": "oss-vpc"
+    })
     """
     ec2 = boto3.client("ec2", region_name="us-east-1")
     out = {}
@@ -207,6 +216,7 @@ def ensure_eks_access_entries(eks, cluster_name, node_role_arn):
         )
         print(f"[INFO] Access Entry registered for Node Role: {node_role_arn}")
 
+@mcp_server.tool()
 def create_eks_cluster_with_nodegroup(params: dict) -> dict:
     """
     Generalized EKS cluster + node group creator (OSS contribution ready).
@@ -230,6 +240,15 @@ def create_eks_cluster_with_nodegroup(params: dict) -> dict:
             - control_role_name
             - node_role_name
             - install_addons
+    e.g.
+    create_eks_cluster_with_nodegroup({
+        "cluster_name": "mcp-eks-cluster",
+        "nodegroup_name": "mcp-ng",
+        "desired_size": 2,
+        "min_size": 1,
+        "max_size": 2,
+        "region": "us-east-1"
+    })
     """
     eks = boto3.client("eks", region_name=params.get("region", "us-east-1"))
     ec2 = boto3.client("ec2", region_name=params.get("region", "us-east-1"))
