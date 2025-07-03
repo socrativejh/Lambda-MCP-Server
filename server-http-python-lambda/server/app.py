@@ -89,18 +89,21 @@ def create_vpc(params: dict) -> dict:
     e.g.
     create_vpc({
         "cidr_block": "10.20.0.0/16",
-        "az_list": ["us-east-1a", "us-east-1b"],
+        "az_list": ["us-west-2a", "us-west-2b"],
         "public_subnets_per_az": 1,
         "private_subnets_per_az": 1,
         "name_tag": "oss-vpc"
     })
     """
-    ec2 = boto3.client("ec2", region_name="us-east-1")
+    ec2 = boto3.client("ec2", region_name="us-west-2")
     out = {}
 
+
+    if isinstance(params, str):
+        params = json.loads(params)
     # Extract parameters with defaults
     cidr_block = params.get("cidr_block", "10.0.0.0/16")
-    az_list = params.get("az_list", ["us-east-1a", "us-east-1b"])
+    az_list = params.get("az_list", ["us-west-2a", "us-west-2b"])
     public_subnets_per_az = params.get("public_subnets_per_az", 1)
     private_subnets_per_az = params.get("private_subnets_per_az", 1)
     name_tag = params.get("name_tag", "mcp-server")
@@ -247,12 +250,12 @@ def create_eks_cluster_with_nodegroup(params: dict) -> dict:
         "desired_size": 2,
         "min_size": 1,
         "max_size": 2,
-        "region": "us-east-1"
+        "region": "us-west-2"
     })
     """
-    eks = boto3.client("eks", region_name=params.get("region", "us-east-1"))
-    ec2 = boto3.client("ec2", region_name=params.get("region", "us-east-1"))
-    iam = boto3.client("iam", region_name=params.get("region", "us-east-1"))
+    eks = boto3.client("eks", region_name=params.get("region", "us-west-2"))
+    ec2 = boto3.client("ec2", region_name=params.get("region", "us-west-2"))
+    iam = boto3.client("iam", region_name=params.get("region", "us-west-2"))
 
     cluster_name = params.get("cluster_name", "my-cluster")
     nodegroup_name = params.get("nodegroup_name", "default-ng")

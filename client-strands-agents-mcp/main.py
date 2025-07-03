@@ -4,8 +4,8 @@ from strands.models import BedrockModel
 from strands.tools.mcp import MCPClient
 
 # Add your API Gateway URL here as it outputs from the sam deploy command (include /mcp at the end):
-api_gateway_url = "https://1234567890.execute-api.us-east-1.amazonaws.com/Prod/mcp"
-auth_token = "1234567890"
+api_gateway_url = "https://ma8rga14yj.execute-api.us-west-2.amazonaws.com/Prod/mcp"
+auth_token = "juhui"
 
 # This uses the Nova Pro model from Amazon Bedrock, in a US region:
 bedrock_model = BedrockModel(
