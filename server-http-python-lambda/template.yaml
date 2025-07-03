@@ -85,6 +85,20 @@ Resources:
                 - dynamodb:UpdateItem
                 - dynamodb:DescribeTable
               Resource: !GetAtt McpSessionsTable.Arn
+            - Effect: Allow
+              Action:
+                - ec2:Create*
+                - ec2:Describe*
+                - ec2:List*
+                - ec2:Authorize*
+                - ec2:Revoke*
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - vpc:Create*
+                - vpc:Describe*
+                - vpc:List*
+              Resource: '*'
       Events:
         McpAPI:
           Type: Api
