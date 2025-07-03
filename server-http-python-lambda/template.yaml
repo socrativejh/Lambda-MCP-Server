@@ -10,7 +10,7 @@ Parameters:
 
 Globals:
   Function:
-    Timeout: 60
+    Timeout: 900
     Runtime: python3.12
     Architectures: [x86_64]
 
