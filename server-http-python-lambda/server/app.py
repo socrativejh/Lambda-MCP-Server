@@ -87,13 +87,7 @@ def create_vpc(params: dict) -> dict:
     - name_tag: str
 
     e.g.
-    create_vpc({
-        "cidr_block": "10.20.0.0/16",
-        "az_list": ["us-west-2a", "us-west-2b"],
-        "public_subnets_per_az": 1,
-        "private_subnets_per_az": 1,
-        "name_tag": "oss-vpc"
-    })
+    createVpc(params={"cidr_block":"10.20.0.0/16","az_list":["us-west-2a","us-west-2b"],"public_subnets_per_az":1,"private_subnets_per_az":1,"name_tag":"mcp"})
     """
     ec2 = boto3.client("ec2", region_name="us-west-2")
     out = {}
