@@ -87,18 +87,24 @@ Resources:
               Resource: !GetAtt McpSessionsTable.Arn
             - Effect: Allow
               Action:
-                - ec2:Create*
-                - ec2:Describe*
-                - ec2:List*
-                - ec2:Authorize*
-                - ec2:Revoke*
-              Resource: '*'
-            - Effect: Allow
-              Action:
-                - vpc:Create*
-                - vpc:Describe*
-                - vpc:List*
-              Resource: '*'
+                - ec2:CreateVpc
+                - ec2:ModifyVpcAttribute
+                - ec2:CreateTags
+                - ec2:DescribeVpcs
+                - ec2:CreateInternetGateway
+                - ec2:AttachInternetGateway
+                - ec2:DescribeInternetGateways
+                - ec2:DescribeRouteTables
+                - ec2:CreateRoute
+                - ec2:CreateRouteTable
+                - ec2:AssociateRouteTable
+                - ec2:CreateSubnet
+                - ec2:ModifySubnetAttribute
+                - ec2:DescribeSubnets
+                - ec2:AllocateAddress
+                - ec2:CreateNatGateway
+                - ec2:DescribeNatGateways
+              Resource: "*"
       Events:
         McpAPI:
           Type: Api
