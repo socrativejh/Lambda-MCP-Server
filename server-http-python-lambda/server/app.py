@@ -5,6 +5,7 @@ import boto3
 import os
 import ipaddress
 import json
+import ast
 
 # Get session table name from environment variable
 session_table = os.environ.get('MCP_SESSION_TABLE', 'mcp_sessions')
@@ -94,7 +95,10 @@ def create_vpc(params: dict) -> dict:
 
 
     if isinstance(params, str):
-        params = json.loads(params)
+        try:
+            params = json.loads(params)
+        except json.JSONDecodeError:
+            params = ast.literal_eval(params)
     # Extract parameters with defaults
     cidr_block = params.get("cidr_block", "10.0.0.0/16")
     az_list = params.get("az_list", ["us-west-2a", "us-west-2b"])
@@ -196,7 +200,9 @@ def create_vpc(params: dict) -> dict:
                              DestinationCidrBlock="0.0.0.0/0",
                              NatGatewayId=nat_id)
 
-    return out
+    return {
+        "Message": f"VPC {vpc_id} and related resources created successfully."
+    }
 
 def lambda_handler(event, context):
     """AWS Lambda handler function."""
